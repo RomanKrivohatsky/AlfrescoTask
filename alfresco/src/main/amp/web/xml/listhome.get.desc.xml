@@ -1,0 +1,11 @@
+
+<webscript>
+    <!-- Название -->
+    <shortname>List Home Dashlet by rom4</shortname>
+    <!-- Описание -->
+    <description>Simple dashlet that lists contents of your home folder</description>
+    <!-- Класс == дашлет -->
+    <family>dashlet</family>
+    <!-- URL скрипта -->
+    <url>/components/dashlets/listhome</url>
+</webscript>
