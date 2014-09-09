@@ -1,0 +1,184 @@
+
+<model name="my:mycar" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+    <description>Car Model</description>
+    <author>Rom4</author>
+    <version>1.0</version>
+
+    <imports>
+        <!-- Import Alfresco Dictionary Definitions -->
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d"/>
+        <!-- Import Alfresco Content Domain Model Definitions -->
+        <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+    </imports>
+
+    <namespaces>
+        <!-- Define a Namespace for my new definitions -->
+        <namespace uri="my.new.car" prefix="my"/>
+    </namespaces>
+
+    <constraints>
+        <constraint name="my:DriveType" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>all-wheel</value>
+                    <value>rear</value>
+                    <value>front-wheel</value>
+                </list>
+            </parameter>
+            <parameter name="caseSensitive">
+                <value>false</value>
+            </parameter>
+        </constraint>
+        <constraint name="my:carBodyType" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>Saloon</value>
+                    <value>Small Car</value>
+                    <value>Estate Car</value>
+                    <value>Van/Minibus</value>
+                </list>
+            </parameter>
+            <parameter name="caseSensitive">
+                <value>false</value>
+            </parameter>
+        </constraint>
+        <constraint name="my:engineTypes" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>Diesel</value>
+                    <value>Electric</value>
+                    <value>Gas</value>
+                </list>
+            </parameter>
+            <parameter name="caseSensitive">
+                <value>false</value>
+            </parameter>
+        </constraint>
+    </constraints>
+
+    <!-- Type and Aspect definitions go here -->
+
+    <types>
+        <type name="my:car">
+            <title>Car properties</title>
+            <parent>cm:content</parent>
+            <properties>
+
+                <property name="my:brand">
+                    <title>Brand</title>
+                    <description>branding</description>
+                    <type>d:text</type>
+                </property>
+
+                <property name="my:model">
+                    <title>Model</title>
+                    <description>model</description>
+                    <type>d:text</type>
+                </property>
+
+                <property name="my:Gearbox">
+                    <title>Gearbox</title>
+                    <type>d:int</type>
+                    <multiple>true</multiple>
+                </property>
+
+                <property name="my:mileage">
+                    <title>Mileage</title>
+                    <type>d:int</type>
+                </property>
+
+                <property name="my:Drive">
+                    <title>Drive</title>
+                    <type>d:text</type>
+                    <constraints>
+                        <constraint ref="my:DriveType" />
+                    </constraints>
+                </property>
+
+                <property name="my:doors">
+                    <title>Doors</title>
+                    <type>d:int</type>
+                </property>
+
+                <property name="my:seats">
+                    <title>Seats</title>
+                    <type>d:int</type>
+                </property>
+
+                <property name="my:color">
+                    <title>Color</title>
+                    <type>d:text</type>
+                </property>
+
+                <property name="my:constructionDate">
+                    <title>Year of construction</title>
+                    <type>d:datetime</type>
+                </property>
+
+            </properties>
+
+
+        </type>
+    </types>
+
+    <aspects>
+        <aspect name="my:images">
+            <title>Images</title>
+            <associations>
+                <association name="my:imageList">
+                    <target>
+                        <class>cm:content</class>
+                        <mandatory>false</mandatory>
+                        <many>true</many>
+                    </target>
+                </association>
+            </associations>
+        </aspect>
+
+        <aspect name="my:carBody">
+            <title>Car Body</title>
+            <properties>
+                <property name="my:body">
+                    <type>d:text</type>
+                    <constraints>
+                        <constraint ref="my:carBodyType"/>
+                    </constraints>
+                </property>
+            </properties>
+        </aspect>
+        <aspect name="my:engine">
+            <title>Engine</title>
+            <properties>
+                <property name="my:engineType">
+                    <type>d:text</type>
+                    <constraints>
+                        <constraint ref="my:engineTypes"/>
+                    </constraints>
+                </property>
+            </properties>
+        </aspect>
+        <aspect name="my:price">
+            <title>Price</title>
+            <properties>
+                <property name="my:priceValue">
+                    <type>d:int</type>
+                </property>
+            </properties>
+        </aspect>
+        <aspect name="my:details">
+            <title>Details</title>
+            <properties>
+                <property name="my:NameDealer">
+                    <title>Name dealer</title>
+                    <type>d:text</type>
+                </property>
+                <property name="my:contacts">
+                    <title>Contact information</title>
+                    <type>d:text</type>
+                </property>
+            </properties>
+        </aspect>
+    </aspects>
+
+</model>
+

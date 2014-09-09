@@ -1,0 +1,36 @@
+
+<!--Начало описания скрипта-->
+<webscript>
+	<!--Короткое название-->
+	<shortname>Cars search</shortname>
+	<!--Описание-->
+	<description>get cars models from repo</description>
+	<!--
+		URI скрипта
+		скрипт будет доступен по адресу
+		http[s]://hostname:port/alfresco/service/ossportal/listhome
+ 
+		скрипт может принимать необязательный аргумент brand
+		-->
+	<url>/ossportal/getCars?brand={brand?}</url>
+	<!--
+		Способ указания выходного формата и формат по умолчанию
+ 
+		Для указания выходного формата может использоваться как передача
+		отдельного параметра ?format=FMT так и расширение listhome.FMT
+ 
+		Выходной формат по умолчанию - JSON
+		-->
+	<format default="json">any</format>
+	<!--
+		Аутентификация
+ 
+		Этот скрипт будет доступен любому пользователю системы (требуются
+		логин и пароль
+		-->
+	<authentication>user</authentication>
+	<!--Включаем транзакции для доступа к хранилищу-->
+	<transaction>required</transaction>
+	<!--Тип скрипта: демонстрационный-->
+	<lifecycle>sample</lifecycle>
+</webscript>
