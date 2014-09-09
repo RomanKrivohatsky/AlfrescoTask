@@ -14,8 +14,8 @@
     "mileage": "${item.mileage}",
     "drive": "${item.Drive}",
     "doors": "${item.doors}",
-    "seats": "${item.seats}"
-
+    "seats": "${item.seats}",
+    "images": "${item.images}"
 
     }<#if item_has_next>,</#if>
     </#list>
