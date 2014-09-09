@@ -1,0 +1,156 @@
+<project name="alfresco-learning" basedir="." default="package">
+
+    <!--for project amps-->
+    <property name="base.project.dir" location="/home/rom4/IdeaProjects/Alfresco/AlfrescoTask"/>
+    <property name="dist.dir" location="${base.project.dir}/alfresco/target"/>
+    <property name="share.dist.dir" location="${base.project.dir}/share"/>
+    <!--for designer  amps-->
+    <property name="moduleDesigner.dist.dir" location="/home/anton/IdeaProjects/Alfresco/AMPSDesingerModel"/>
+
+    <property name="alfresco.project.dir" location="/home/rom4/IdeaProjects/Alfresco/AlfrescoTask"/>
+
+
+    <!--custom properties for apply amps task-->
+    <property name="alfresco.home" location="/home/rom4/Alfresco/"/>
+    <property name="alfresco.explorer.amp.home" location="${alfresco.home}/amps"/>
+    <property name="alfresco.share.amp.home" location="${alfresco.home}/amps_share"/>
+    <property name="alfresco.back_up.wars.home" location="${alfresco.home}/back_up"/>
+    <property name="alfresco.webapp.home" location="${alfresco.home}/tomcat/webapps"/>
+    <property name="alfresco.apply_amps.script" location="${alfresco.home}/bin/apply_amps.sh"/>
+
+
+
+
+    <path id="yuicompressor.classpath">
+        <fileset dir="lib">
+            <include name="ml-ant-http-1.1.1.jar"/>
+            <include name="jsch-0.1.50.jar"/>
+            <include name="ant-jsch-1.8.1.jar"/>
+        </fileset>
+    </path>
+
+    <taskdef name="http" classname="org.missinglink.ant.task.http.HttpClientTask">
+        <classpath>
+            <path refid="yuicompressor.classpath"/>
+        </classpath>
+    </taskdef>
+
+    <target name="build amp alfresco" description="Apply amps and clean solr folders (indexes and models)">
+
+        <exec command="mvn -f ${base.project.dir}/alfresco/pom.xml clean"/>
+        <exec command="mvn -f ${base.project.dir}/alfresco/pom.xml package"/>
+
+    </target>
+
+    <target name="build amp share" description="Apply amps and clean solr folders (indexes and models)">
+
+        <exec command="mvn -f ${share.dist.dir}/pom.xml clean"/>
+        <exec command="mvn -f ${share.dist.dir}/pom.xml package"/>
+
+    </target>
+
+    <!-- <target name="apply amps" depends="build amp alfresco,build amp share"> -->
+
+    <target name="apply amps" depends="build amp alfresco">
+
+        <exec command="rm -rf ${alfresco.explorer.amp.home}"/>
+        <exec command="rm -rf ${alfresco.share.amp.home}"/>
+        <exec command="rm -r ${alfresco.webapp.home}/alfresco.war"/>
+        <exec command="rm -r ${alfresco.webapp.home}/share.war"/>
+
+        <exec command="mkdir ${alfresco.explorer.amp.home}"/>
+        <exec command="mkdir ${alfresco.share.amp.home}"/>
+
+        <exec command="cp ${dist.dir}/MyAmp.amp ${alfresco.explorer.amp.home}"/>
+        <exec command="cp ${share.dist.dir}/target/share-1.0.amp ${alfresco.share.amp.home}"/>
+
+        <exec command="cp ${alfresco.back_up.wars.home}/alfresco.war ${alfresco.webapp.home}"/>
+        <exec command="cp ${alfresco.back_up.wars.home}/share.war ${alfresco.webapp.home}"/>
+
+        <!--for designer amp-->
+
+        <!--
+        <exec command="cp ${moduleDesigner.dist.dir}/becpg-controls-core-1.5.0.amp ${alfresco.explorer.amp.home}"/>
+        <exec command="cp ${moduleDesigner.dist.dir}/becpg-designer-core-1.5.0.amp ${alfresco.explorer.amp.home}"/>
+        <exec command="cp ${moduleDesigner.dist.dir}/becpg-controls-share-1.5.0.amp ${alfresco.share.amp.home}"/>
+        <exec command="cp ${moduleDesigner.dist.dir}/becpg-designer-share-1.5.0.amp ${alfresco.share.amp.home}"/>
+        -->
+
+        <exec command="${alfresco.apply_amps.script}"/>
+
+    </target>
+
+
+    <target name="reload.all.scripts">
+
+        <copy todir="${alfresco.webapp.home}/alfresco/WEB-INF/classes/alfresco/templates/webscripts" overwrite="true">
+            <fileset dir="${alfresco.project.dir}/alfresco//src/main/amp/config/alfresco/templates/webscript">
+                <!--<include name="*.*"/>-->
+            </fileset>
+        </copy>
+
+        <copy todir="${alfresco.webapp.home}/share/components" overwrite="true">
+            <fileset dir="${alfresco.project.dir}/share/src/main/resources/META-INF/components">
+                <!--<include name="*.*"/>-->
+            </fileset>
+        </copy>
+
+        <copy todir="${alfresco.webapp.home}/share/WEB-INF/classes/alfresco/web-extension" overwrite="true">
+            <fileset dir="${alfresco.project.dir}/share/src/main/resources/alfresco">
+                <!--<include name="*.*"/>-->
+            </fileset>
+        </copy>
+
+
+        <http url="http://localhost:8080/alfresco/service/index"
+              method="POST"
+              printrequest="false"
+              printrequestheaders="false"
+              printresponse="false"
+              printresponseheaders="false"
+              expected="200"
+              failonunexpected="true">
+            <credentials username="admin" password="admin"/>
+            <query>
+                <parameter name="reset" value="on"/>
+            </query>
+        </http>
+
+        <http url="http://localhost:8080/share/page/index"
+              method="POST"
+              printrequest="false"
+              printrequestheaders="false"
+              printresponse="false"
+              printresponseheaders="false"
+              expected="200"
+              failonunexpected="true">
+            <credentials username="admin" password="admin"/>
+            <query>
+                <parameter name="reset" value="on"/>
+            </query>
+        </http>
+
+        <http url="http://localhost:8080/share/page/caches/dependency/clear"
+              method="POST"
+              printrequest="false"
+              printrequestheaders="false"
+              printresponse="false"
+              printresponseheaders="false"
+              expected="200"
+              failonunexpected="true">
+            <credentials username="admin" password="admin"/>
+        </http>
+
+    </target>
+
+
+    <target name="reload.frontend">
+        <copy todir="/home/anton/alfresco-4.2.c/tomcat/webapps/modelTask" overwrite="true">
+            <fileset dir="/home/anton/IdeaProjects/Alfresco/alfresco-learning/FrontEnd/modelCRUDTaskFrontEnd">
+            </fileset>
+            <fileset dir="/home/anton/IdeaProjects/Alfresco/alfresco-learning/FrontEnd/learnYUI_JS_OOP">
+            </fileset>
+        </copy>
+    </target>
+
+</project>
