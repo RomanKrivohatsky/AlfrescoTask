@@ -12,7 +12,7 @@ var searhString = "TYPE\:\"my\:car\""
 //search.luceneSearch("TYPE\:\"my\:car\" and @my\\:brand:\"bmw\"")
 
 
-if (brand.length > 0 && brand != "{brand?}") {
+if (brand.length > 0 && brand != "{brand?}" && brand != "all"  ) {
     searhString = "@my\\:brand:\"" + brand + "\""
 }
 var cars = search.luceneSearch(searhString)
