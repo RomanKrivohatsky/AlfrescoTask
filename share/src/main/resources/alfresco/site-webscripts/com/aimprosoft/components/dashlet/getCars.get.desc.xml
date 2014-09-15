@@ -1,0 +1,11 @@
+
+<webscript>
+    <!-- Название -->
+    <shortname>Car Market</shortname>
+    <!-- Описание -->
+    <description>Simple dashlet Car Market</description>
+    <!-- Класс == дашлет -->
+    <family>dashlet</family>
+    <!-- URL скрипта -->
+    <url>/components/dashlets/getCars</url>
+</webscript>
