@@ -78,7 +78,7 @@
 
                 <property name="my:Gearbox">
                     <title>Gearbox</title>
-                    <type>d:int</type>
+                    <type>d:text</type>
                     <multiple>true</multiple>
                 </property>
 
@@ -90,9 +90,7 @@
                 <property name="my:Drive">
                     <title>Drive</title>
                     <type>d:text</type>
-                    <constraints>
-                        <constraint ref="my:DriveType" />
-                    </constraints>
+                    <multiple>true</multiple>
                 </property>
 
                 <property name="my:doors">
@@ -112,7 +110,7 @@
 
                 <property name="my:constructionDate">
                     <title>Year of construction</title>
-                    <type>d:datetime</type>
+                    <type>d:date</type>
                 </property>
 
             </properties>
@@ -126,10 +124,12 @@
             <title>Images</title>
             <associations>
                 <association name="my:imageList">
+                    <source>
+                        <many>true</many>
+                    </source>
                     <target>
                         <class>cm:content</class>
                         <mandatory>false</mandatory>
-                        <many>true</many>
                     </target>
                 </association>
             </associations>
@@ -140,9 +140,7 @@
             <properties>
                 <property name="my:body">
                     <type>d:text</type>
-                    <constraints>
-                        <constraint ref="my:carBodyType"/>
-                    </constraints>
+                    <multiple>true</multiple>
                 </property>
             </properties>
         </aspect>
@@ -151,9 +149,7 @@
             <properties>
                 <property name="my:engineType">
                     <type>d:text</type>
-                    <constraints>
-                        <constraint ref="my:engineTypes"/>
-                    </constraints>
+                    <multiple>true</multiple>
                 </property>
             </properties>
         </aspect>

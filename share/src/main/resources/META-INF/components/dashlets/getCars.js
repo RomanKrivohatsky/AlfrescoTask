@@ -112,21 +112,18 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
                 var params = {brand: "all", model: "all"};
 
                 if (Dom.hasClass("searchDetails", "hidden") === false) {
-
                     selectedBrand = Dom.get("carBrand").selectedOptions[0].value;
                     selectedModel = Dom.get("carModel").selectedOptions[0].value;
-
                 }
 
                 if (selectedBrand != "") {
                     params.brand = selectedBrand;
-
                 }
                 if (selectedModel != "") {
                     params.model = selectedModel;
                 }
 
-                    Alfresco.util.Ajax.request({
+                 Alfresco.util.Ajax.request({
                  url: Alfresco.constants.PROXY_URI + "ossportal/getCars",
                  dataObj: params,
                  method: Alfresco.util.Ajax.GET,   // can be post, put, delete
