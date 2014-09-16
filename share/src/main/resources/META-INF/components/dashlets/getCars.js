@@ -59,7 +59,7 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
 
     YAHOO.extend(Alfresco.dashlet.GetCars, Alfresco.component.Base,
 
-    {
+        {
 
             PREFERENCES_MYDOCUMENTS_DASHLET_FILTER: "",
             PREFERENCES_MYDOCUMENTS_DASHLET_VIEW: "",
@@ -85,8 +85,7 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
 
                 Event.addListener(Dom.get("carBrand"), "change", this.changeBrand);
 
-                var params = {brand: "all", model: "all"};
-
+                var params = {carBody: "all", brand: "all", model: "all"};
 
                 Alfresco.util.Ajax.request({
                     url: Alfresco.constants.PROXY_URI + "ossportal/getCars",
@@ -104,48 +103,101 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
                 });
             },
 
+            onButtonClickSearch: function GetCars_onButtonClickSearch() {
 
+                var selectedBrand = '', selectedModel = '', selectedBody = '';
+                var params = {carBody: "all", brand: "all", model: "all"};
 
-        onButtonClickSearch: function GetCars_onButtonClickSearch() {
+                //var domCarBody = Dom.get("carBody");
 
-                var selectedBrand = '', selectedModel = '';
-                var params = {brand: "all", model: "all"};
+                var domCarBody = document.getElementsByName('body');
+
+                for (var ind = 0; ind < domCarBody.length; ++ind) {
+                    if (domCarBody[ind].checked == true) {
+                        selectedBody = domCarBody[ind].value;
+                    }
+                }
 
                 if (Dom.hasClass("searchDetails", "hidden") === false) {
+
                     selectedBrand = Dom.get("carBrand").selectedOptions[0].value;
                     selectedModel = Dom.get("carModel").selectedOptions[0].value;
                 }
 
-                if (selectedBrand != "") {
+                if (selectedBody != "" && selectedBody != "All") {
+                    params.carBody = selectedBody;
+                }
+                if (selectedBrand != "" && selectedBrand != "all") {
                     params.brand = selectedBrand;
                 }
-                if (selectedModel != "") {
+                if (selectedModel != "" && selectedModel != "all") {
                     params.model = selectedModel;
                 }
 
-                 Alfresco.util.Ajax.request({
-                 url: Alfresco.constants.PROXY_URI + "ossportal/getCars",
-                 dataObj: params,
-                 method: Alfresco.util.Ajax.GET,   // can be post, put, delete
-                 successCallback: { fn: this.successHandler},
-                 failureCallback: {fn: this.failureHandler  }
+                Alfresco.util.Ajax.request({
+                    url: Alfresco.constants.PROXY_URI + "ossportal/getCars",
+                    dataObj: params,
+                    method: Alfresco.util.Ajax.GET,   // can be post, put, delete
+                    successCallback: { fn: this.successHandler},
+                    failureCallback: {fn: this.failureHandler  }
 
-                 });
+                });
             },
 
-           successHandler: function GetCars_successHandler(response, config) {
+            successHandler: function GetCars_successHandler(response, config) {
 
-             var carsData = response.json.data.items;
+                var carsData = response.json.data.items;
 
+                var domListCar = Dom.get("listCar");
+                domListCar.innerHTML = "";
 
-             var domListCar = Dom.get("listCar");
-             domListCar.innerHTML = "";
+                var html = "<table border='1' >"
+                html = html + "<tr> <td> <b> brand  </td>";
+                html = html + "<td> <b> model  </td>"
+                html = html + "<td> <b> gearbox  </td>"
+                html = html + "<td> <b> mileage  </td>"
+                html = html + "<td> <b> drive  </td>"
+                html = html + "<td> <b> doors  </td>"
+                html = html + "<td> <b> seats  </td>"
+                html = html + "<td> <b> color  </td>"
+                html = html + "<td> <b> body  </td>"
+                html = html + "<td> <b> engineType  </td>"
+                html = html + "<td> <b> priceValue  </td>"
+                html = html + "<td> <b> NameDealer  </td>"
+                html = html + "<td> <b> contacts  </td>"
+                html = html + "<td> <b> constructionDate  </td>"
+                html = html + "<td> <b> image  </td></tr>"
 
-             for (var ind = 0; ind < carsData.length; ++ind) {
-             var html = domListCar.innerHTML + "<p>" + carsData[ind].model
-             domListCar.innerHTML = html;
-             }
-             },
+                for (var ind = 0; ind < carsData.length; ++ind) {
+                    html = html + "<tr> <td> " + carsData[ind].brand + "</td>";
+                    html = html + "<td> " + carsData[ind].model + "</td>"
+                    html = html + "<td> " + carsData[ind].gearbox + "</td>"
+                    html = html + "<td> " + carsData[ind].mileage + "</td>"
+                    html = html + "<td> " + carsData[ind].drive + "</td>"
+                    html = html + "<td> " + carsData[ind].doors + "</td>"
+                    html = html + "<td> " + carsData[ind].seats + "</td>"
+                    html = html + "<td> " + carsData[ind].color + "</td>"
+                    html = html + "<td> " + carsData[ind].body + "</td>"
+                    html = html + "<td> " + carsData[ind].engineType + "</td>"
+                    html = html + "<td> " + carsData[ind].priceValue + "</td>"
+                    html = html + "<td> " + carsData[ind].NameDealer + "</td>"
+                    html = html + "<td> " + carsData[ind].contacts + "</td>"
+                    html = html + "<td> " + carsData[ind].constructionDate + "</td>"
+                    var images = carsData[ind].images.split(";");
+
+                    //var imagePath = "http://localhost:8080/alfresco/" + images[0].substring(5, images[0].length - 4);
+
+                    var imagePath = "http://localhost:8080/alfresco/" + images[0];
+
+                    //html = html  +  "  <td>  <img src = " + imagePath + "  onerror='' title='image' width='48' /> </td>";
+                    //html = html  +  "  <td>  <a href = " + imagePath + " > View full image </> </td>";
+
+                    html = html + "  <td>   <a href = " + imagePath + " >  <img src = " + imagePath + "  onerror='' title='image' width='48' /> </a> </td>";
+
+                }
+                html = html + "</tr> </table >"
+                domListCar.innerHTML = html;
+            },
 
             failureHandler: function GetCars_failureHandler(response, config) {
                 window.alert("error!!!");
@@ -155,24 +207,50 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
             onButtonClickDetail: function GetCars_onButtonClick() {
 
                 var carsData = carsDataGlobal;
-                this.widgets.carsData = carsData;
 
                 if (Dom.hasClass("searchDetails", "hidden") === true) {
                     Dom.removeClass("searchDetails", "hidden");
                     //brand
-                    generateDropdown("carBrand", "brand",carsData );
+                    generateDropdown("carBrand", "brand", carsData);
                     //model
-                    generateDropdown("carModel", "model",carsData );
-
+                    generateDropdown("carModel", "model", carsData);
                 }
                 else {
                     Dom.addClass("searchDetails", "hidden");
                 }
-
             },
 
+
             changeBrand: function fnCallback(e) {
-                alert("clickBrand");
+                var carsData = carsDataGlobal;
+                selectedBrand = Dom.get("carBrand").selectedOptions[0].value;
+                var domModel = Dom.get("carModel");
+                var html = '';
+
+                if (selectedBrand == "all") {
+                    generateDropdown("carModel", "model", carsData)
+                    return;
+                }
+
+                var len = carsData.length;
+                var models = [];
+                for (var ind = 0; ind < len; ++ind) {
+                    if (carsData[ind].brand == selectedBrand) {
+                        if (!inArray(carsData[ind].model, models)) {
+                            models.push(carsData[ind].model);
+                        }
+
+                    }
+                }
+
+                var len = models.length;
+
+                html = html + "<option value= 'all'>all</option> ";
+
+                for (var ind = 0; ind < len; ++ind) {
+                    html = html + "<option value= " + models[ind] + ">" + models[ind] + "</option> ";
+                }
+                domModel.innerHTML = html;
             }
         });
 
@@ -183,8 +261,10 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
         var html = '';
         var dom = Dom.get(id);
 
+        html = html + "<option value= 'all'>all</option> ";
+
         for (var ind = 0; ind < len; ++ind) {
-            html = html + "<option value= " + nodes[ind] + ">" + nodes[ind] + "</option> "
+            html = html + "<option value= '" + nodes[ind] + "'>" + nodes[ind] + "</option> ";
         }
         dom.innerHTML = html;
     }

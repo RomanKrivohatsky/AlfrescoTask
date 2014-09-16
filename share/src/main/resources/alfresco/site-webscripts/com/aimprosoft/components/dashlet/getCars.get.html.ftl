@@ -22,11 +22,17 @@
 
         <div class="toolbar ">
 
-            <input type="radio" name="body" value="Saloon" checked> Saloon
-            <p><input type="radio" name="body" value="Estate"> Estate
+            <div id="carBodyDiv">
+                <input type="radio" id="carBody" name="body" value="All" checked> All
+                <p><input type="radio" id="carBody" name="body" value="Saloon"> Saloon
 
-            <p><input type="radio" name="body" value="MiniBus"> MiniBus
+                <p><input type="radio" id="carBody"  name="body" value="Estate"> Estate
 
+                <p><input type="radio" id="carBody" name="body" value="MiniBus"> MiniBus
+
+                <p><input type="radio" id="carBody" name="body" value="Small Car"> Small Car
+
+            </div>
             <p>
                 <button type="button" tabindex="0" id="${id}-advancedSearch">Advanced Search</button>
 
@@ -47,9 +53,11 @@
 
             </div>
 
-            <p> <button type="button" tabindex="0" id="${id}-Search">Search NOW, man!</button>
+            <p>
+                <button type="button" tabindex="0" id="${id}-Search">Search NOW, man!</button>
 
         </div>
+
 
         <div id="listCar">
 
@@ -89,18 +97,18 @@
         </div>
     </#list>-->
 
-        <div id="${id}-simpleDetailed" class="align-right simple-detailed yui-buttongroup inline">
-                  <span class="yui-button yui-radio-button simple-view  yui-button-checked yui-radio-button-checked>">
-                     <span class="first-child">
-                        <button type="button" tabindex="0" title="test1"></button>
-                     </span>
-                  </span>
-                  <span class="yui-button yui-radio-button detailed-view ">
-                     <span class="first-child">
-                        <button type="button" tabindex="0" title="test2"></button>
-                     </span>
-                  </span>
-        </div>
+    <#--  <div id="${id}-simpleDetailed" class="align-right simple-detailed yui-buttongroup inline">
+                <span class="yui-button yui-radio-button simple-view  yui-button-checked yui-radio-button-checked>">
+                   <span class="first-child">
+                      <button type="button" tabindex="0" title="test1"></button>
+                   </span>
+                </span>
+                <span class="yui-button yui-radio-button detailed-view ">
+                   <span class="first-child">
+                      <button type="button" tabindex="0" title="test2"></button>
+                   </span>
+                </span>
+      </div>-->
 
     </div>
 

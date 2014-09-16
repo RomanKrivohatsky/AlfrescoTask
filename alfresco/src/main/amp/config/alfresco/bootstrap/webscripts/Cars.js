@@ -1,11 +1,13 @@
 
-
-
 unzipFile();
 
 function unzipFile() {
     //folders for unzip
     var dest = companyhome.childByNamePath("Cars");
+/*    if (dest == null) {
+        companyhome.createFolder("Cars");
+        dest = companyhome.childByNamePath("Cars");
+    }*/
     var tempFolder = companyhome.childByNamePath("temp");
     if (tempFolder == null) {
         companyhome.createFolder("temp");
@@ -18,7 +20,8 @@ function unzipFile() {
     var car = parseXML(carXML);
     var folderName = car.brand;
     var currentDate = new Date();
-    var carDataFolder = companyhome.createFolder(folderName + "_" + currentDate.getFullYear() + "_" + currentDate.getTime());
+    var identifier = Math.floor( Math.random()*10000);
+    var carDataFolder = companyhome.createFolder(folderName + "_" + currentDate.getFullYear() + "_" + currentDate.getTime() + "_" + identifier.toString());
     setProp(carXML, car);
     imageActions(tempFolder, carDataFolder, carXML);
     carXML.move(carDataFolder);
@@ -58,6 +61,7 @@ function setProp(carXML, car) {
     carXML.properties["my:doors"] = parseInt(car.doors);
     carXML.properties["my:seats"] = parseInt(car.seats);
     carXML.properties["my:color"] = String(car.color);
+    carXML.properties["my:mileage"] = String(car.mileage);
     constructionDate = new Date( car.yearOfConstruction.substring(0, 4),0,1);
     //constructionDate = new Date();
     //constructionDate.setDate(car.yearOfConstruction.toString());
@@ -67,7 +71,7 @@ function setProp(carXML, car) {
     carXML.properties["my:Drive"] = drive;
     carXML.save();
     var props = new Array(1);
-    props["my:body"] = String(car.carBody);;
+    props["my:body"] = String(car.carBody);
     carXML.addAspect("my:carBody", props);
     var props = new Array(1);
     var engine = car.engine.split(",");

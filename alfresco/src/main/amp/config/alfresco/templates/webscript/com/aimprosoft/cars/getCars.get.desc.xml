@@ -12,7 +12,7 @@
  
 		скрипт может принимать необязательный аргумент brand
 		-->
-	<url>/ossportal/getCars?brand={brand?}&amp;model={model?}</url>
+	<url>/ossportal/getCars?carBody={carBody?}&amp;brand={brand?}&amp;model={model?}</url>
 
 	<!--
 		Способ указания выходного формата и формат по умолчанию

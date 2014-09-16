@@ -1,4 +1,5 @@
 // получаем значение параметра brand
+var carBody = args["carBody"];
 var brand = args["brand"];
 var  modelArg = args["model"];
 // инициализируем массив
@@ -12,9 +13,12 @@ var searhString = "TYPE\:\"my\:car\"";
 // search.luceneSearch("TYPE\:\"my\:car\" and @my\\:brand:\"bmw\"")
 //search.luceneSearch("TYPE\:\"my\:car\" and @my\\:brand:\"bmw\"")
 
+if (carBody.length > 0 && carBody != "{carBody?}" && carBody != "all"  ) {
+    searhString = searhString + " + @my\\:body:\"" + carBody + "\"";
+}
 
 if (brand.length > 0 && brand != "{brand?}" && brand != "all"  ) {
-    searhString = "@my\\:brand:\"" + brand + "\"";
+    searhString = searhString + " + @my\\:brand:\"" + brand + "\"";
 }
 
 if ( modelArg.length > 0 && modelArg != "{model}" && modelArg != "all"  ) {
@@ -34,7 +38,6 @@ for (var index = 0; index < len; ++index) {
 
     if (cars[index].getType() == "{my.new.car}car") {
         var car = cars[index];
-
 
         if (car.hasAspect("my:images")) {
             var imageList = car.assocs["my:imageList"];
@@ -59,6 +62,13 @@ for (var index = 0; index < len; ++index) {
                 "Drive": "" + car.properties["my:Drive"],
                 "doors": "" + car.properties["my:doors"],
                 "seats": "" + car.properties["my:seats"],
+                "color": "" + car.properties["my:color"],
+                "constructionDate": "" + car.properties["my:constructionDate"],
+                "body": "" + car.properties["my:body"],
+                "engineType": "" + car.properties["my:engineType"],
+                "priceValue": "" + car.properties["my:priceValue"],
+                "NameDealer": "" + car.properties["my:NameDealer"],
+                "contacts": "" + car.properties["my:contacts"],
                 "images": imagsPaths
             });
     }
