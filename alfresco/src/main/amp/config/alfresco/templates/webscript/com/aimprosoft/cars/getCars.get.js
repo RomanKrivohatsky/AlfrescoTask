@@ -2,16 +2,18 @@
 var carBody = args["carBody"];
 var brand = args["brand"];
 var  modelArg = args["model"];
-// инициализируем массив
+var  yearFrom = args["yearFrom"];
+var  yearTo = args["yearTo"];
+var  priceFrom = args["priceFrom"];
+var  priceTo = args["priceTo"];
+
 list = [];
-//var cars = companyhome.childByNamePath("Cars");
 
 // search for Car nodes
 //var cars = companyhome.Cars.childrenByLuceneSearch["TYPE:'cm:content'"];
-var searhString = "TYPE\:\"my\:car\"";
 //search.luceneSearch("TYPE\:\"my\:car\"" + "@my\\:brand:\\"" + brand + ""\"")
-// search.luceneSearch("TYPE\:\"my\:car\" and @my\\:brand:\"bmw\"")
-//search.luceneSearch("TYPE\:\"my\:car\" and @my\\:brand:\"bmw\"")
+
+var searhString = "TYPE\:\"my\:car\"";
 
 if (carBody.length > 0 && carBody != "{carBody?}" && carBody != "all"  ) {
     searhString = searhString + " + @my\\:body:\"" + carBody + "\"";
@@ -25,6 +27,41 @@ if ( modelArg.length > 0 && modelArg != "{model}" && modelArg != "all"  ) {
     searhString = searhString + " + @my\\:model:\"" + modelArg + "\"";
 }
 
+if ( ( yearFrom.length > 0 && yearFrom != "{yearFrom}" && yearFrom != "all")
+    || ( yearTo.length > 0 && yearTo != "{yearTo}" && yearTo != "all" ) ) {
+
+    if ( (yearFrom.length > 0 && yearFrom != "{yearFrom}" && yearFrom != "all")
+        &&  (yearTo.length > 0 && yearTo != "{yearTo}" && yearTo != "all"  )) {
+        searhString = searhString + " + @my\\:constructionDate:\[" + yearFrom + "-01-01'T'00:00:00.000 TO " + yearTo + "-01-01'T'00:00:00.000 \]";
+    }
+    else {
+        if ( yearFrom.length > 0 && yearFrom != "{yearFrom}" && yearFrom != "all") {
+            searhString = searhString + " + @my\\:constructionDate:\[" + yearFrom + "-01-01'T'00:00:00.000 TO MAX \]";
+        }
+
+        if ( yearTo.length > 0 && yearTo != "{yearTo}" && yearFrom != "all") {
+            searhString = searhString + " + @my\\:constructionDate:\[ MIN TO " + yearTo + "-01-01'T'00:00:00.000 \]";
+        }
+    }
+}
+
+if ( ( priceFrom.length > 0 && priceFrom != "{priceFrom}" && priceFrom != "all")
+    || ( priceTo.length > 0 && priceTo != "{priceTo}" && priceTo != "all" ) ) {
+
+    if ( (priceFrom.length > 0 && priceFrom != "{priceFrom}" && priceFrom != "all")
+        &&  (priceTo.length > 0 && priceTo != "{yearTo}" && priceTo != "all"  )) {
+        searhString = searhString + " + @my\\:priceValue:\[" + priceFrom + " TO " + priceTo   + "\]";
+    }
+    else {
+        if ( priceFrom.length > 0 && priceFrom != "{yearFrom}" && priceFrom != "all") {
+            searhString = searhString + " + @my\\:priceValue:\[" + priceFrom + " TO MAX \]";
+        }
+
+        if ( priceTo.length > 0 && priceTo != "{yearTo}" && priceTo != "all") {
+            searhString = searhString + " + @my\\:priceValue:\[ MIN TO " + priceTo + "\]";
+        }
+    }
+}
 var cars = search.luceneSearch(searhString);
 
 var len = 0

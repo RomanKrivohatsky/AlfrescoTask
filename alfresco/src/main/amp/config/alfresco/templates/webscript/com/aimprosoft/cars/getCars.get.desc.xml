@@ -12,7 +12,8 @@
  
 		скрипт может принимать необязательный аргумент brand
 		-->
-	<url>/ossportal/getCars?carBody={carBody?}&amp;brand={brand?}&amp;model={model?}</url>
+	<url>/ossportal/getCars?carBody={carBody?}&amp;brand={brand?}&amp;model={model?}&amp;
+        yearFrom={yearFrom?}&amp;yearTo={yearTo?}&amp;priceFrom={priceFrom?}&amp;priceTo={priceTo?}</url>
 
 	<!--
 		Способ указания выходного формата и формат по умолчанию

@@ -26,7 +26,7 @@
                 <input type="radio" id="carBody" name="body" value="All" checked> All
                 <p><input type="radio" id="carBody" name="body" value="Saloon"> Saloon
 
-                <p><input type="radio" id="carBody"  name="body" value="Estate"> Estate
+                <p><input type="radio" id="carBody" name="body" value="Estate"> Estate
 
                 <p><input type="radio" id="carBody" name="body" value="MiniBus"> MiniBus
 
@@ -37,6 +37,7 @@
                 <button type="button" tabindex="0" id="${id}-advancedSearch">Advanced Search</button>
 
             <div id="searchDetails" class="hidden">
+
                 <p><select id="carBrand">
                 </select>
 

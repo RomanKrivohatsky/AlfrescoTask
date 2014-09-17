@@ -85,7 +85,14 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
 
                 Event.addListener(Dom.get("carBrand"), "change", this.changeBrand);
 
-                var params = {carBody: "all", brand: "all", model: "all"};
+                var params = {carBody: "all",
+                    brand: "all",
+                    model: "all",
+                    yearFrom: "all",
+                    yearTo: "all",
+                    priceFrom: "all",
+                    priceTo: "all"
+                };
 
                 Alfresco.util.Ajax.request({
                     url: Alfresco.constants.PROXY_URI + "ossportal/getCars",
@@ -105,12 +112,20 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
 
             onButtonClickSearch: function GetCars_onButtonClickSearch() {
 
-                var selectedBrand = '', selectedModel = '', selectedBody = '';
-                var params = {carBody: "all", brand: "all", model: "all"};
+                var selectedBrand = '', selectedModel = '', selectedBody = '',
+                    yearFrom = '', yearTo = '', priceFrom = '', priceTo = '';
+                var params = {carBody: "all",
+                    brand: "all",
+                    model: "all",
+                    yearFrom: "all",
+                    yearTo: "all",
+                    priceFrom: "all",
+                    priceTo: "all"
+                };
 
                 //var domCarBody = Dom.get("carBody");
-
                 var domCarBody = document.getElementsByName('body');
+
 
                 for (var ind = 0; ind < domCarBody.length; ++ind) {
                     if (domCarBody[ind].checked == true) {
@@ -119,9 +134,12 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
                 }
 
                 if (Dom.hasClass("searchDetails", "hidden") === false) {
-
                     selectedBrand = Dom.get("carBrand").selectedOptions[0].value;
                     selectedModel = Dom.get("carModel").selectedOptions[0].value;
+                    yearFrom = Dom.get("yearFrom").value;
+                    yearTo = Dom.get("yearTo").value;
+                    priceFrom = Dom.get("priceFrom").value;
+                    priceTo = Dom.get("priceTo").value;
                 }
 
                 if (selectedBody != "" && selectedBody != "All") {
@@ -132,6 +150,18 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
                 }
                 if (selectedModel != "" && selectedModel != "all") {
                     params.model = selectedModel;
+                }
+                if (yearFrom != "") {
+                    params.yearFrom = yearFrom;
+                }
+                if (yearTo != "") {
+                    params.yearTo = yearTo;
+                }
+                if (priceFrom != "") {
+                    params.priceFrom = priceFrom;
+                }
+                if (priceTo != "") {
+                    params.priceTo = priceTo;
                 }
 
                 Alfresco.util.Ajax.request({
