@@ -1,0 +1,11 @@
+
+<webscript>
+    <!-- Название -->
+    <shortname>Car Details</shortname>
+    <!-- Описание -->
+    <description>Car Details Page</description>
+    <!-- Класс == дашлет -->
+    <family>dashlet</family>
+    <!-- URL скрипта -->
+    <url>/components/dashlets/carDetails?carID={carID}&amp;proxyURI={proxyURI?}</url>
+</webscript>

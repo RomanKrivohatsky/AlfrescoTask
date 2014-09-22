@@ -2,7 +2,7 @@
  * Created by rom4 on 8/29/14.
  */
 // js-контроллер
-//<import resource="classpath:/alfresco/templates/org/alfresco/import/alfresco-util.js " >
+//<import resource="classpath:/alfresco/template-instances/org/alfresco/import/alfresco-util.js " >
 
 function main()
 {

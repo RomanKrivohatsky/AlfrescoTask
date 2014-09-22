@@ -1,0 +1,13 @@
+
+<component>
+    <scope>page</scope>
+    <region-id>left</region-id>
+    <source-id>carDetails</source-id>
+    <url>/components/dashlets/carDetails</url>
+    <guid>page.left.carDetails</guid>
+    <properties>
+        <carID>{carID}</carID>>
+        <proxyURI>{proxyURI}</proxyURI>>
+        <height>434</height>
+    </properties>
+</component>

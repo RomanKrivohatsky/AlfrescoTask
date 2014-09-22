@@ -1,0 +1,11 @@
+
+<webscript>
+    <!-- Название -->
+    <shortname>Car Details</shortname>
+    <!-- Описание -->
+    <description>Simple dashlet Car Details</description>
+    <!-- Класс == дашлет -->
+    <family>dashlet</family>
+    <!-- URL скрипта -->
+    <url>/components/dashlets/carDetails</url>
+</webscript>

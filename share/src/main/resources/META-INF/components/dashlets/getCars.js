@@ -32,7 +32,7 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
     var Dom = YAHOO.util.Dom,
         Event = YAHOO.util.Event,
         Selector = YAHOO.util.Selector;
-    carsDataGlobal = [];
+        carsDataGlobal = [];
 
     /**
      * Dashboard GetCars constructor.
@@ -179,9 +179,11 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
                 var carsData = response.json.data.items;
 
                 var domListCar = Dom.get("listCar");
+                var listCarImage = Dom.get("listCarImage");
                 domListCar.innerHTML = "";
-
-                var html = "<table border='1' >"
+                listCarImage.innerHTML = "";
+                var html = '', htmlImage = '';
+              /*  var html = "<table border='1' >"
                 html = html + "<tr> <td> <b> brand  </td>";
                 html = html + "<td> <b> model  </td>"
                 html = html + "<td> <b> gearbox  </td>"
@@ -196,10 +198,12 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
                 html = html + "<td> <b> NameDealer  </td>"
                 html = html + "<td> <b> contacts  </td>"
                 html = html + "<td> <b> constructionDate  </td>"
-                html = html + "<td> <b> image  </td></tr>"
+                html = html + "<td> <b> image  </td></tr>"*/
+
 
                 for (var ind = 0; ind < carsData.length; ++ind) {
-                    html = html + "<tr> <td> " + carsData[ind].brand + "</td>";
+
+                  /*  html = html + "<tr> <td> " + carsData[ind].brand + "</td>";
                     html = html + "<td> " + carsData[ind].model + "</td>"
                     html = html + "<td> " + carsData[ind].gearbox + "</td>"
                     html = html + "<td> " + carsData[ind].mileage + "</td>"
@@ -212,21 +216,53 @@ if (typeof GetCars.dashlet == "undefined" || !GetCars.dashlet) {
                     html = html + "<td> " + carsData[ind].priceValue + "</td>"
                     html = html + "<td> " + carsData[ind].NameDealer + "</td>"
                     html = html + "<td> " + carsData[ind].contacts + "</td>"
-                    html = html + "<td> " + carsData[ind].constructionDate + "</td>"
+                    html = html + "<td> " + carsData[ind].constructionDate + "</td>"*/
+
+                    //enctype='multipart/form-data'
+
+                    html = html + "<div class='div-table-row'> " +
+                    "<span class = 'div-font-car-description'>  <p><p><b> <a href = http://localhost:8080/share/page/carDetails?carID="
+                            + carsData[ind].ID + "&proxyURI=" + Alfresco.constants.PROXY_URI_RELATIVE
+                            + "> Car details </a> </b> "
+                        + "<form method='POST' action = 'http://localhost:8080/share/page/carDetails'> "
+                        +"<input type='hidden' name = 'model' value= '" + carsData[ind].model+ "'/>"
+                        +"<input type='hidden' name = 'brand' value= '" + carsData[ind].brand+ "'/>"
+                        +"<input type='hidden' name = 'gearbox' value= '" + carsData[ind].gearbox+ "'/>"
+                        +"<input type='hidden' name = 'mileage' value= '" + carsData[ind].mileage+ "'/>"
+                        +"<input type='hidden' name = 'drive' value= '" + carsData[ind].drive+ "'/>"
+                        +"<input type='hidden' name = 'doors' value= '" + carsData[ind].doors+ "'/>"
+                        +"<input type='hidden' name = 'seats' value= '" + carsData[ind].seats+ "'/>"
+                        +"<input type='hidden' name = 'body' value= '" + carsData[ind].body+ "'/>"
+                        +"<input type='hidden' name = 'engineType' value= '" + carsData[ind].engineType+ "'/>"
+                        +"<input type='hidden' name = 'priceValue' value= '" + carsData[ind].priceValue+ "'/>"
+                        +"<input type='hidden' name = 'NameDealer' value= '" + carsData[ind].NameDealer+ "'/>"
+                        +"<input type='hidden' name = 'contacts' value= '" + carsData[ind].contacts+ "'/>"
+                        +"<input type='hidden' name = 'constructionDate' value= '" + carsData[ind].constructionDate+ "'/>"
+
+                        +"<input type='hidden' name = 'images' value= '" + carsData[ind].images+ "'/>"
+                        +"<input type='hidden' name = 'PROXY_URI_RELATIVE' value= '" + Alfresco.constants.PROXY_URI_RELATIVE + "'/>"
+
+                        + "<input type='submit' value = 'Details'> </form>"
+                        + "<p><b> Model:</b>" + carsData[ind].brand + " " + carsData[ind].model + " " + carsData[ind].body + "  <p><b> Year of Construction:</b> " + carsData[ind].constructionDate
+                        + "  <p><b>Price:</b>" + carsData[ind].priceValue + "</span></div>"
+
                     var images = carsData[ind].images.split(";");
 
-                    //var imagePath = "http://localhost:8080/alfresco/" + images[0].substring(5, images[0].length - 4);
-
-                    var imagePath = "http://localhost:8080/alfresco/" + images[0];
+                    //trow proxy http://localhost:8080/share/proxy/alfresco/api/node/content/workspace/SpacesStore/39795594-ffa8-4ca0-8eac-a2ad1e4347a9/images.jpg
+                    var imagePath =  Alfresco.constants.PROXY_URI_RELATIVE + "api/node/content/" + images[0].substring(5, images[0].length - 4);
 
                     //html = html  +  "  <td>  <img src = " + imagePath + "  onerror='' title='image' width='48' /> </td>";
                     //html = html  +  "  <td>  <a href = " + imagePath + " > View full image </> </td>";
 
-                    html = html + "  <td>   <a href = " + imagePath + " >  <img src = " + imagePath + "  onerror='' title='image' width='48' /> </a> </td>";
+                    htmlImage =  htmlImage +  " <div class='div-table-row'>"
+
+                    htmlImage = htmlImage + "<a href = " + imagePath + " >  <img src = " + imagePath + "  onerror='' title='image' width='180' /> </a> </div>";
 
                 }
-                html = html + "</tr> </table >"
+               // html = html + "</tr> </table >"
                 domListCar.innerHTML = html;
+                listCarImage.innerHTML = htmlImage;
+
             },
 
             failureHandler: function GetCars_failureHandler(response, config) {

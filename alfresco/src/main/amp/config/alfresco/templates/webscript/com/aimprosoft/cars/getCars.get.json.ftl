@@ -8,6 +8,7 @@
     <#list data.items as item>
     {
     "type": "${item.type}",
+    "ID": "${item.ID}",
     "model": "${item.model}",
     "brand": "${item.brand}",
     "gearbox": "${item.Gearbox}",

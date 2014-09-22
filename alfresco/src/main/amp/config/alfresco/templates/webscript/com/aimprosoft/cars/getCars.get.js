@@ -1,3 +1,4 @@
+
 // получаем значение параметра brand
 var carBody = args["carBody"];
 var brand = args["brand"];
@@ -22,6 +23,8 @@ if (carBody.length > 0 && carBody != "{carBody?}" && carBody != "all"  ) {
 if (brand.length > 0 && brand != "{brand?}" && brand != "all"  ) {
     searhString = searhString + " + @my\\:brand:\"" + brand + "\"";
 }
+
+
 
 if ( modelArg.length > 0 && modelArg != "{model}" && modelArg != "all"  ) {
     searhString = searhString + " + @my\\:model:\"" + modelArg + "\"";
@@ -92,6 +95,7 @@ for (var index = 0; index < len; ++index) {
         list.push(
             {
                 "type": car.getType(),
+                "ID": car.getId(),
                 "model": car.properties["my:model"],
                 "brand": car.properties["my:brand"],
                 "Gearbox": "" + car.properties["my:Gearbox"],
@@ -100,7 +104,7 @@ for (var index = 0; index < len; ++index) {
                 "doors": "" + car.properties["my:doors"],
                 "seats": "" + car.properties["my:seats"],
                 "color": "" + car.properties["my:color"],
-                "constructionDate": "" + car.properties["my:constructionDate"],
+                "constructionDate": "" + car.properties["my:constructionDate"].getFullYear(),
                 "body": "" + car.properties["my:body"],
                 "engineType": "" + car.properties["my:engineType"],
                 "priceValue": "" + car.properties["my:priceValue"],

@@ -1,0 +1,7 @@
+
+<page>
+    <title>Car details</title>
+    <description>Car page details</description>
+    <template-instance>carDetails</template-instance>
+    <authentication>none</authentication>
+</page>

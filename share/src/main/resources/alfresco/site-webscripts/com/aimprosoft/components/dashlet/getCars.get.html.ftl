@@ -1,3 +1,8 @@
+<@markup id="css">
+<#-- CSS Dependencies -->
+    <@link rel="stylesheet" type="text/css" href="${url.context}/res/components/dashlets/getCars.css" group="dashlets"/>
+</@>
+
 <@markup id="js">
 <#-- JavaScript Dependencies -->
     <@script type="text/javascript" src="${url.context}/res/components/dashlets/getCars.js" group="dashlets"/>
@@ -20,98 +25,74 @@
     <div class="body scrollableList">
     <#-- Выводим список всех элементов в домашней папке -->
 
-        <div class="toolbar ">
+        <div class="div-table">
+            <div class="div-table-col-left">
 
-            <div id="carBodyDiv">
-                <input type="radio" id="carBody" name="body" value="All" checked> All
-                <p><input type="radio" id="carBody" name="body" value="Saloon"> Saloon
+                <div id="carBodyDiv">
+                    <div class="div-table-row">
+                        <input type="radio" id="carBody" name="body" value="All" checked> All
+                    </div>
+                    <div class="div-table-row">
+                        <p><input type="radio" id="carBody" name="body" value="Saloon"> Saloon
+                    </div>
+                    <div class="div-table-row">
+                        <p><input type="radio" id="carBody" name="body" value="Estate"> Estate
+                    </div>
+                    <div class="div-table-row">
+                        <p><input type="radio" id="carBody" name="body" value="MiniBus"> MiniBus
+                    </div>
+                    <div class="div-table-row">
+                        <p><input type="radio" id="carBody" name="body" value="Small Car"> Small Car
+                    </div>
+                </div>
 
-                <p><input type="radio" id="carBody" name="body" value="Estate"> Estate
+                <div class="div-table-row">
+                    <div class="advanced_search">
+                        <button type="button" tabindex="0" id="${id}-advancedSearch">Advanced Search</button>
+                    </div>
+                </div>
+                <div id="searchDetails" class="hidden">
 
-                <p><input type="radio" id="carBody" name="body" value="MiniBus"> MiniBus
+                    <div class="div-table-row">
+                        <select id="carBrand">
+                        </select>
+                    </div>
+                    <div class="div-table-row">
+                        <p><select id="carModel">
+                        </select>
+                    </div>
+                    <div class="div-table-row">
+                        <span> Year of a car</span>
+                        <p> from <input id="yearFrom" name="from"> to <input id="yearTo" name="to">
+                    </div>
+                    <div class="div-table-row">
+                        <span> Price of a car</span>
+                        <p> from <input id="priceFrom" name="from"> to <input id="priceTo" name="to">
+                    </div>
+                </div>
 
-                <p><input type="radio" id="carBody" name="body" value="Small Car"> Small Car
+                <div class="div-table-row">
+                    <button type="button" tabindex="0" id="${id}-Search">Search NOW, man!</button>
+                </div>
 
             </div>
-            <p>
-                <button type="button" tabindex="0" id="${id}-advancedSearch">Advanced Search</button>
 
-            <div id="searchDetails" class="hidden">
-
-                <p><select id="carBrand">
-                </select>
-
-                <p><select id="carModel">
-                </select>
-
-                <p><span> Year of a car</span>
-
-                <p> from <input id="yearFrom" name="from"> to <input id="yearTo" name="to">
-
-                <p><span> Price of a car</span>
-
-                <p> from <input id="priceFrom" name="from"> to <input id="priceTo" name="to">
-
+            <div class="div-table-col-left">
+                <div id="listCar">
+                    <b> List of cars </b>
+                </div>
             </div>
 
-            <p>
-                <button type="button" tabindex="0" id="${id}-Search">Search NOW, man!</button>
-
+            <div class="div-table-col-right">
+                <div id="listCarImage">
+                    <b> Images </b>
+                </div>
+            </div>
         </div>
-
-
-        <div id="listCar">
-
-            <b> List of cars </b>
-        <#--  </div>
-
-
-            <span class="align-left yui-button" id="${id}-mybutton">
-                <span class="first-child">
-                   <button type="button" tabindex="0">Load data 1 </button>
-                </span>
-              </span>
-                <span class="align-left yui-button" id="${id}-mybutton2">
-                <span class="first-child">
-                   <button type="button" tabindex="0">Load data 2</button>
-                </span>
-              </span>
-                <span class="align-left yui-button" id="${id}-mybutton3">
-                <span class="first-child">
-                   <button type="button" tabindex="0">Load data 3</button>
-                </span>
-              </span>
-          </div>-->
-        </div>
-
-    <#--<#list data.items as item>
-        <div id="detail-list" class="detail-list-item <#if !item_has_next>last-item</#if>">
-        &lt;#&ndash; Таблица &ndash;&gt;
-            <table>
-                <tr>
-                &lt;#&ndash; Ссылка &ndash;&gt;
-                    <td><h4>${item.model}</h4></td>
-                    <td><h4>${item.brand}</h4></td>
-                    <td><h4>${item.type}</h4></td>
-                </tr>
-            </table>
-        </div>
-    </#list>-->
-
-    <#--  <div id="${id}-simpleDetailed" class="align-right simple-detailed yui-buttongroup inline">
-                <span class="yui-button yui-radio-button simple-view  yui-button-checked yui-radio-button-checked>">
-                   <span class="first-child">
-                      <button type="button" tabindex="0" title="test1"></button>
-                   </span>
-                </span>
-                <span class="yui-button yui-radio-button detailed-view ">
-                   <span class="first-child">
-                      <button type="button" tabindex="0" title="test2"></button>
-                   </span>
-                </span>
-      </div>-->
 
     </div>
 
+
 </div>
+
 </@>

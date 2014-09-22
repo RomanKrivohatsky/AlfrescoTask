@@ -5,13 +5,13 @@
     <property name="dist.dir" location="${base.project.dir}/alfresco/target"/>
     <property name="share.dist.dir" location="${base.project.dir}/share"/>
     <!--for designer  amps-->
-    <property name="moduleDesigner.dist.dir" location="/home/anton/IdeaProjects/Alfresco/AMPSDesingerModel"/>
+    <property name="moduleDesigner.dist.dir" location="/home/rom4/IdeaProjects/Alfresco/AMPSDesingerModel"/>
 
     <property name="alfresco.project.dir" location="/home/rom4/IdeaProjects/Alfresco/AlfrescoTask"/>
 
 
     <!--custom properties for apply amps task-->
-    <property name="alfresco.home" location="/home/rom4/Alfresco/"/>
+    <property name="alfresco.home" location="/home/rom4/AlfrescoServers/alfresco-4.2.e"/>
     <property name="alfresco.explorer.amp.home" location="${alfresco.home}/amps"/>
     <property name="alfresco.share.amp.home" location="${alfresco.home}/amps_share"/>
     <property name="alfresco.back_up.wars.home" location="${alfresco.home}/back_up"/>
